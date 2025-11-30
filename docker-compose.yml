@@ -1,0 +1,160 @@
+services:
+  auth-db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: auth_user
+      POSTGRES_PASSWORD: auth_pass
+      POSTGRES_DB: auth_db
+    ports:
+      - "5434:5432"
+    volumes:
+      - auth_data:/var/lib/postgresql/data
+    networks:
+      - ecommerce
+
+  auth-service:
+    build: ./auth-service
+    depends_on:
+      - auth-db
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: auth-db
+      DB_NAME: auth_db
+      DB_USER: auth_user
+      DB_PASSWORD: auth_pass
+    networks:
+      - ecommerce
+
+  product-db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: product_user
+      POSTGRES_PASSWORD: product_pass
+      POSTGRES_DB: product_db
+    ports:
+      - "5437:5432"
+    volumes:
+      - product_data:/var/lib/postgresql/data
+    networks:
+      - ecommerce
+
+  product-service:
+    build: ./product-service
+    depends_on:
+      - product-db
+    ports:
+      - "8001:8001"
+    environment:
+      DB_HOST: product-db
+      DB_NAME: product_db
+      DB_USER: product_user
+      DB_PASSWORD: product_pass
+    networks:
+      - ecommerce
+
+  cart-db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: cart_user
+      POSTGRES_PASSWORD: cart_pass
+      POSTGRES_DB: cart_db
+    ports:
+      - "5435:5432"
+    volumes:
+      - cart_data:/var/lib/postgresql/data
+    networks:
+      - ecommerce
+
+  cart-service:
+    build: ./cart-service
+    depends_on:
+      - cart-db
+    ports:
+      - "8002:8002"
+    environment:
+      DB_HOST: cart-db
+      DB_NAME: cart_db
+      DB_USER: cart_user
+      DB_PASSWORD: cart_pass
+    networks:
+      - ecommerce
+
+  order-db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: order_user
+      POSTGRES_PASSWORD: order_pass
+      POSTGRES_DB: order_db
+    ports:
+      - "5436:5432"
+    volumes:
+      - order_data:/var/lib/postgresql/data
+    networks:
+      - ecommerce
+
+  order-service:
+    build: ./order-service
+    depends_on:
+      - order-db
+      - cart-service
+    ports:
+      - "8003:8003"
+    environment:
+      ORDER_DB_HOST: order-db
+      ORDER_DB_NAME: order_db
+      ORDER_DB_USER: order_user
+      ORDER_DB_PASSWORD: order_pass
+    networks:
+      - ecommerce
+
+  payment-service:
+    build: ./payment-service
+    depends_on:
+      - order-db
+      - order-service
+    ports:
+      - "8004:8004"
+    environment:
+      ORDER_DB_HOST: order-db
+      ORDER_DB_NAME: order_db
+      ORDER_DB_USER: order_user
+      ORDER_DB_PASSWORD: order_pass
+    networks:
+      - ecommerce
+
+  notification-service:
+    build: ./notification-service
+    ports:
+      - "8005:8005"
+    networks:
+      - ecommerce
+  
+  frontend:
+    build:
+      context: ./ecommerce-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - product-service
+      - auth-service
+      - cart-service
+      - order-service
+      - notification-service
+    networks:
+      - ecommerce
+
+
+
+
+
+
+volumes:
+  auth_data:
+  cart_data:
+  order_data:
+  product_data:
+
+networks:
+  ecommerce:

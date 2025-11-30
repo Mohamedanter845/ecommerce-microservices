@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecommerce-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ecommerce-frontend
+  template:
+    metadata:
+      labels:
+        app: ecommerce-frontend
+    spec:
+      containers:
+      - name: ecommerce-frontend
+        image: 792302461774.dkr.ecr.eu-north-1.amazonaws.com/ecommerce-frontend
+        ports:
+        - containerPort: 80
+        env:
+        - name: REACT_APP_AUTH_URL
+          value: "http://auth-service:8000"
+        - name: REACT_APP_PRODUCT_URL
+          value: "http://product-service:8001"
+        - name: REACT_APP_CART_URL
+          value: "http://cart-service:8002"
+        - name: REACT_APP_ORDER_URL
+          value: "http://order-service:8003"
+        - name: REACT_APP_PAYMENT_URL
+          value: "http://payment-service:8004"
