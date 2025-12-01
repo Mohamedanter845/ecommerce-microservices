@@ -18,6 +18,10 @@ class CartItem(BaseModel):
     product_id: int
     quantity: int = 1
 
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}
+
 @app.post("/cart/add")
 def add_to_cart(item: CartItem):
     conn = get_db()

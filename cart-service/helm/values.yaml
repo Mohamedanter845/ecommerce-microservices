@@ -1,0 +1,61 @@
+replicaCount: 2
+
+image:
+  repository: 792302461774.dkr.ecr.eu-north-1.amazonaws.com/cart-service
+  tag: "latest"
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 8002
+
+env:
+  DB_HOST: "cart-db.default.svc.cluster.local"
+  DB_NAME: "cart_db"
+  DB_USER: "cart_user"
+  DB_PASSWORD: "cart_pass"
+
+resources:
+  limits:
+    cpu: 300m
+    memory: 256Mi
+  requests:
+    cpu: 150m
+    memory: 128Mi
+
+livenessProbe:
+  path: /health
+  port: 8002
+
+readinessProbe:
+  path: /health
+  port: 8002
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 70
+
+ingress:
+  enabled: false
+  className: ""
+  hosts: []
+  tls: []
+
+httpRoute:
+  enabled: false
+  annotations: {}
+  parentRefs:
+    - name: gateway
+      sectionName: http
+  hostnames:
+    - chart-example.local
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /headers
+serviceAccount:
+  create: false
+  name: ""
