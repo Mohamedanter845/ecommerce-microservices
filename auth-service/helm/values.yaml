@@ -1,0 +1,56 @@
+replicaCount: 2
+
+image:
+  repository: 792302461774.dkr.ecr.eu-north-1.amazonaws.com/auth-service
+  tag: "latest"
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 8000
+
+env:
+  DB_HOST: "auth-db.default.svc.cluster.local"
+  DB_NAME: "auth_db"
+  DB_USER: "auth_user"
+  DB_PASSWORD: "auth_pass"
+
+resources:
+  limits:
+    cpu: 300m
+    memory: 256Mi
+  requests:
+    cpu: 150m
+    memory: 128Mi
+
+livenessProbe:
+  path: /health
+  port: 8000
+
+readinessProbe:
+  path: /health
+  port: 8000
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 70
+ingress:
+  enabled: false
+  className: ""
+  hosts: []
+  tls: []
+httpRoute:
+  enabled: false
+  annotations: {}
+  parentRefs:
+    - name: gateway
+      sectionName: http
+  hostnames:
+    - chart-example.local
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /headers

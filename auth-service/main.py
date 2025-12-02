@@ -30,6 +30,10 @@ def truncate_password(password: str, max_bytes: int = MAX_BCRYPT_PASSWORD_BYTES)
     truncated = encoded.decode('utf-8', 'ignore')
     return truncated
 
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}
+
 @app.post("/register")
 def register(user: User):
     raw_password = truncate_password(user.password)
