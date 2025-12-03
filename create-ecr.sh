@@ -9,6 +9,7 @@ SERVICES=(
   "payment-service"
   "cart-service"
   "auth-service"
+  "notification-service"
 )
 # ----------------------------
 

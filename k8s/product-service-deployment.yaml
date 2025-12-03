@@ -19,7 +19,7 @@ spec:
         - containerPort: 80
         env:
         - name: DB_HOST
-          value: "database-1.c1ei8g4sk3j5.eu-north-1.rds.amazonaws.com"
+          value: "database-2.c1ei8g4sk3j5.eu-north-1.rds.amazonaws.com"
         - name: DB_PORT
           value: "5432"
         - name: DB_NAME

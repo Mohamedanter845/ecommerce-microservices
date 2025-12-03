@@ -1,0 +1,18 @@
+replicaCount: 2
+
+image:
+  repository: 792302461774.dkr.ecr.eu-north-1.amazonaws.com/ecommerce-frontend
+  tag: latest
+  pullPolicy: IfNotPresent
+
+containerPort: 80
+
+service:
+  port: 80
+
+env:
+  REACT_APP_AUTH_URL: "http://auth-service:8000"
+  REACT_APP_PRODUCT_URL: "http://product-service:8001"
+  REACT_APP_CART_URL: "http://cart-service:8002"
+  REACT_APP_ORDER_URL: "http://order-service:8003"
+  REACT_APP_PAYMENT_URL: "http://payment-service:8004"

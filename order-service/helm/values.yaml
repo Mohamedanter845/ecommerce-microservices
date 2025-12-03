@@ -1,0 +1,16 @@
+replicaCount: 2
+
+image:
+  repository: 792302461774.dkr.ecr.eu-north-1.amazonaws.com/order-service
+  tag: "latest"
+
+service:
+  port: 8003
+  targetPort: 8003
+
+env:
+  DB_HOST: "database-2.c1ei8g4sk3j5.eu-north-1.rds.amazonaws.com"
+  DB_PORT: "5432"
+  DB_NAME: "postgres"
+  DB_USER: "postgres"
+  DB_PASSWORD_SECRET: "product-db-secret"
