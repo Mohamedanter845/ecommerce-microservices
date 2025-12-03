@@ -15,7 +15,7 @@ jobs:
     env:
       AWS_REGION: eu-north-1
       ECR_REGISTRY: 792302461774.dkr.ecr.eu-north-1.amazonaws.com
-      IMAGE_TAG: latest  # استخدم latest هنا، وسيب tag ثابت في Helm values.yaml
+      IMAGE_TAG: latest   
 
     steps:
       - name: Checkout code
@@ -73,7 +73,12 @@ jobs:
           docker build -t $ECR_REGISTRY/notification-service:$IMAGE_TAG ./notification-service
           docker push $ECR_REGISTRY/notification-service:$IMAGE_TAG
 
-      # Restart deployments to pull the new images
+      # Setup kubeconfig for EKS cluster
+      - name: Setup kubeconfig for EKS
+        run: |
+          aws eks update-kubeconfig --region $AWS_REGION --name my-eks-cluster
+
+      # Restart deployments to pull new images
       - name: Restart Frontend Deployment
         run: kubectl rollout restart deployment ecommerce-frontend -n default
 
