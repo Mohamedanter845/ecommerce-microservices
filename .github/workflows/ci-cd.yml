@@ -15,7 +15,7 @@ jobs:
     env:
       AWS_REGION: eu-north-1
       ECR_REGISTRY: 792302461774.dkr.ecr.eu-north-1.amazonaws.com
-      IMAGE_TAG: latest   
+      IMAGE_TAG: latest
 
     steps:
       - name: Checkout code
@@ -31,71 +31,57 @@ jobs:
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
 
-      # Build and push frontend
-      - name: Build and Push ecommerce-frontend Image
+      # -------------------------
+      # Build & Push All Services
+      # -------------------------
+
+      - name: Build and Push ecommerce-frontend
         run: |
           docker build -t $ECR_REGISTRY/ecommerce-frontend:$IMAGE_TAG ./ecommerce-frontend
           docker push $ECR_REGISTRY/ecommerce-frontend:$IMAGE_TAG
 
-      # Build and push auth-service
-      - name: Build and Push auth-service Image
+      - name: Build and Push auth-service
         run: |
           docker build -t $ECR_REGISTRY/auth-service:$IMAGE_TAG ./auth-service
           docker push $ECR_REGISTRY/auth-service:$IMAGE_TAG
 
-      # Build and push product-service
-      - name: Build and Push product-service Image
+      - name: Build and Push product-service
         run: |
           docker build -t $ECR_REGISTRY/product-service:$IMAGE_TAG ./product-service
           docker push $ECR_REGISTRY/product-service:$IMAGE_TAG
 
-      # Build and push cart-service
-      - name: Build and Push cart-service Image
+      - name: Build and Push cart-service
         run: |
           docker build -t $ECR_REGISTRY/cart-service:$IMAGE_TAG ./cart-service
           docker push $ECR_REGISTRY/cart-service:$IMAGE_TAG
 
-      # Build and push order-service
-      - name: Build and Push order-service Image
+      - name: Build and Push order-service
         run: |
           docker build -t $ECR_REGISTRY/order-service:$IMAGE_TAG ./order-service
           docker push $ECR_REGISTRY/order-service:$IMAGE_TAG
 
-      # Build and push payment-service
-      - name: Build and Push payment-service Image
+      - name: Build and Push payment-service
         run: |
           docker build -t $ECR_REGISTRY/payment-service:$IMAGE_TAG ./payment-service
           docker push $ECR_REGISTRY/payment-service:$IMAGE_TAG
 
-      # Build and push notification-service
-      - name: Build and Push notification-service Image
+      - name: Build and Push notification-service
         run: |
           docker build -t $ECR_REGISTRY/notification-service:$IMAGE_TAG ./notification-service
           docker push $ECR_REGISTRY/notification-service:$IMAGE_TAG
 
-      # Setup kubeconfig for EKS cluster
-      - name: Setup kubeconfig for EKS
+      # -------------------------
+      # Update kubeconfig (IMPORTANT)
+      # -------------------------
+      - name: Update kubeconfig for EKS
         run: |
-          aws eks update-kubeconfig --region $AWS_REGION --name my-eks-cluster
+          aws eks update-kubeconfig \
+            --name my-eks-cluster \
+            --region eu-north-1
 
-      # Restart deployments to pull new images
-      - name: Restart Frontend Deployment
-        run: kubectl rollout restart deployment ecommerce-frontend -n default
-
-      - name: Restart Auth Service Deployment
-        run: kubectl rollout restart deployment auth-service -n default
-
-      - name: Restart Product Service Deployment
-        run: kubectl rollout restart deployment product-service -n default
-
-      - name: Restart Cart Service Deployment
-        run: kubectl rollout restart deployment cart-service -n default
-
-      - name: Restart Order Service Deployment
-        run: kubectl rollout restart deployment order-service -n default
-
-      - name: Restart Payment Service Deployment
-        run: kubectl rollout restart deployment payment-service -n default
-
-      - name: Restart Notification Service Deployment
-        run: kubectl rollout restart deployment notification-service -n default
+      # -------------------------
+      # Restart Deployment
+      # -------------------------
+      - name: Restart frontend deployment
+        run: |
+          kubectl rollout restart deployment ecommerce-frontend -n default
