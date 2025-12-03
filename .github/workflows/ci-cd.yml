@@ -15,7 +15,7 @@ jobs:
     env:
       AWS_REGION: eu-north-1
       ECR_REGISTRY: 792302461774.dkr.ecr.eu-north-1.amazonaws.com
-      IMAGE_TAG: ${{ github.sha }}
+      IMAGE_TAG: latest  # استخدم latest هنا، وسيب tag ثابت في Helm values.yaml
 
     steps:
       - name: Checkout code
@@ -72,3 +72,25 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/notification-service:$IMAGE_TAG ./notification-service
           docker push $ECR_REGISTRY/notification-service:$IMAGE_TAG
+
+      # Restart deployments to pull the new images
+      - name: Restart Frontend Deployment
+        run: kubectl rollout restart deployment ecommerce-frontend -n default
+
+      - name: Restart Auth Service Deployment
+        run: kubectl rollout restart deployment auth-service -n default
+
+      - name: Restart Product Service Deployment
+        run: kubectl rollout restart deployment product-service -n default
+
+      - name: Restart Cart Service Deployment
+        run: kubectl rollout restart deployment cart-service -n default
+
+      - name: Restart Order Service Deployment
+        run: kubectl rollout restart deployment order-service -n default
+
+      - name: Restart Payment Service Deployment
+        run: kubectl rollout restart deployment payment-service -n default
+
+      - name: Restart Notification Service Deployment
+        run: kubectl rollout restart deployment notification-service -n default
