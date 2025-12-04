@@ -1,0 +1,149 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ecommerce-platform
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/Mohamedanter845/ecommerce-microservices
+    targetRevision: main
+    path: argocd-apps
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
+---
+# Auth Service
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: auth-service
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Mohamedanter845/ecommerce-microservices
+    targetRevision: main
+    path: auth-service/helm
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: auth-service
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+---
+# Cart Service
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cart-service
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Mohamedanter845/ecommerce-microservices
+    targetRevision: main
+    path: cart-service/helm
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cart-service
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+---
+# Product Service
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: product-service
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Mohamedanter845/ecommerce-microservices
+    targetRevision: main
+    path: product-service/helm
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: product-service
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+---
+# Order Service
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: order-service
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Mohamedanter845/ecommerce-microservices
+    targetRevision: main
+    path: order-service/helm
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: order-service
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+---
+# Payment Service
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: payment-service
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Mohamedanter845/ecommerce-microservices
+    targetRevision: main
+    path: payment-service/helm
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: payment-service
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+---
+# Ecommerce Frontend
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ecommerce-frontend
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Mohamedanter845/ecommerce-microservices
+    targetRevision: main
+    path: ecommerce-frontend/helm
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: frontend
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
