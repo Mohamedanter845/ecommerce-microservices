@@ -54,3 +54,6 @@ httpRoute:
         - path:
             type: PathPrefix
             value: /headers
+env:
+  - name: DATABASE_URL
+    value: "postgresql://postgres:<PASSWORD>@database-2.c1ei8g4sk3j5.eu-north-1.rds.amazonaws.com:5432/<YOUR_DB_NAME>"

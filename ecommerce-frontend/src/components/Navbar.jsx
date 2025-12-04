@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Menu, X, ShoppingCart, Search, Sun, Moon } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(false);
-  const [cartCount] = useState(3); 
+  const [cartCount] = useState(3);
   const [search, setSearch] = useState("");
   const [auto, setAuto] = useState([]);
 
@@ -20,14 +21,11 @@ export default function Navbar() {
 
   return (
     <div className={`${dark ? "dark" : ""}`}>
-      
       <nav className="bg-gray-900 text-white dark:bg-gray-800 sticky top-0 z-50 shadow-lg">
-
         <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
-
           {/* Logo */}
           <h1 className="text-3xl font-extrabold tracking-wide text-red-500">
-            M3 <span className="text-white">Shop</span>
+            <Link to="/">M3 <span className="text-white">Shop</span></Link>
           </h1>
 
           {/* Desktop Search */}
@@ -62,21 +60,28 @@ export default function Navbar() {
 
           {/* Desktop Menu */}
           <ul className="hidden md:flex gap-8 text-lg font-medium">
-            <li className="hover:text-red-400 cursor-pointer">Home</li>
-            <li className="hover:text-red-400 cursor-pointer">Products</li>
-            <li className="hover:text-red-400 cursor-pointer">Cart</li>
-            <li className="hover:text-red-400 cursor-pointer">Orders</li>
+            <li>
+              <Link to="/" className="hover:text-red-400">Home</Link>
+            </li>
+            <li>
+              <Link to="/products" className="hover:text-red-400">Products</Link>
+            </li>
+            <li>
+              <Link to="/cart" className="hover:text-red-400">Cart</Link>
+            </li>
+            <li>
+              <Link to="/orders" className="hover:text-red-400">Orders</Link>
+            </li>
           </ul>
 
           {/* Right Actions */}
           <div className="hidden md:flex items-center gap-6">
-
             {/* Account */}
             <div className="relative group cursor-pointer">
               <span className="hover:text-red-400">Account</span>
               <div className="absolute right-0 hidden group-hover:block bg-white text-gray-900 w-40 shadow-lg rounded-md mt-2 p-2">
-                <p className="p-2 hover:bg-gray-200 rounded">Login</p>
-                <p className="p-2 hover:bg-gray-200 rounded">Register</p>
+                <p className="p-2 hover:bg-gray-200 rounded cursor-pointer">Login</p>
+                <p className="p-2 hover:bg-gray-200 rounded cursor-pointer">Register</p>
               </div>
             </div>
 
@@ -106,12 +111,36 @@ export default function Navbar() {
         {/* Mobile Items */}
         {open && (
           <div className="md:hidden bg-gray-800 p-4 space-y-4 shadow-lg">
-            <p className="text-lg hover:text-red-400">Home</p>
-            <p className="text-lg hover:text-red-400">Products</p>
-            <p className="text-lg hover:text-red-400">Cart</p>
-            <p className="text-lg hover:text-red-400">Orders</p>
-            <p className="text-lg hover:text-red-400">Login</p>
-            <p className="text-lg hover:text-red-400">Register</p>
+            <Link
+              to="/"
+              onClick={() => setOpen(false)}
+              className="block text-lg hover:text-red-400"
+            >
+              Home
+            </Link>
+            <Link
+              to="/products"
+              onClick={() => setOpen(false)}
+              className="block text-lg hover:text-red-400"
+            >
+              Products
+            </Link>
+            <Link
+              to="/cart"
+              onClick={() => setOpen(false)}
+              className="block text-lg hover:text-red-400"
+            >
+              Cart
+            </Link>
+            <Link
+              to="/orders"
+              onClick={() => setOpen(false)}
+              className="block text-lg hover:text-red-400"
+            >
+              Orders
+            </Link>
+            <p className="text-lg hover:text-red-400 cursor-pointer">Login</p>
+            <p className="text-lg hover:text-red-400 cursor-pointer">Register</p>
           </div>
         )}
       </nav>

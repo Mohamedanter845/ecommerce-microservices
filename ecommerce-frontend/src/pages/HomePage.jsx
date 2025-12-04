@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";  // استيراد useNavigate
 import { fetchProducts } from "../api/productApi";
 import ProductCard from "../components/ProductCard";
 
 export default function HomePage() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); // تهيئة navigate
 
   useEffect(() => {
     fetchProducts()
-      .then((data) => setProducts(data.slice(0, 4))) // أول 4 منتجات بس
+      .then((data) => setProducts(data.slice(0, 4))) // عرض أول 4 منتجات فقط
       .catch((err) => setError(err.message));
   }, []);
 
@@ -20,7 +22,11 @@ export default function HomePage() {
         <p className="text-lg max-w-xl">
           Discover the best products with amazing prices. Quality guaranteed and fast shipping.
         </p>
-        <button className="mt-8 bg-gray-900 hover:bg-gray-800 px-6 py-3 rounded-md text-white font-semibold transition duration-300">
+        {/* زرار Shop Now مع التنقل لصفحة المنتجات */}
+        <button
+          onClick={() => navigate("/products")}
+          className="mt-8 bg-gray-900 hover:bg-gray-800 px-6 py-3 rounded-md text-white font-semibold transition duration-300"
+        >
           Shop Now
         </button>
       </section>
