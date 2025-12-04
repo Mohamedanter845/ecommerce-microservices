@@ -1,0 +1,4 @@
+apiVersion: v2
+name: ingress-controller
+description: A Helm chart for centralized ingress routing microservices
+version: 0.1.0
