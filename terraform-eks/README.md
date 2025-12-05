@@ -99,7 +99,7 @@ terraform apply
 # To tear down infrastructure when no longer needed
 terraform destroy
 ----------------------
-```
+
 🔧 Inputs (Excerpt from variables.tf)
 Variable	Description	Type	Default / Example	Required
 cluster_name	EKS cluster name	string	"production-eks-cluster"	yes
