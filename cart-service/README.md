@@ -1,7 +1,9 @@
 # Cart Service
 
 This microservice manages the shopping cart functionality for the Ecommerce Microservices project. It allows adding products to a user's cart, retrieving the cart contents, and removing products from the cart.
-
+```
+![Cart Service Page](../screenshots/cartpage-project.PNG)
+```
 ---
 
 ## Features
