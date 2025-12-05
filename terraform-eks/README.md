@@ -99,7 +99,7 @@ terraform apply
 # To tear down infrastructure when no longer needed
 terraform destroy
 ----------------------
-
+```
 🔧 Inputs (Excerpt from variables.tf)
 Variable	Description	Type	Default / Example	Required
 cluster_name	EKS cluster name	string	"production-eks-cluster"	yes
@@ -129,6 +129,7 @@ private_subnet_ids	List of private subnet IDs
 
 ````
 ---------------------
+```
 📚 References & Further Reading
 
 Terraform AWS Provider Docs
@@ -143,3 +144,4 @@ Terraform Best Practices
 
 Mohamed Anter
 GitHub: github.com/Mohamedanter845
+--------------
