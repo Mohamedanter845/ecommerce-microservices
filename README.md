@@ -8,15 +8,15 @@ A fully automated microservices ecommerce platform leveraging Terraform for infr
 ## 🏗️ Architecture Overview
 ###1. ☁️ AWS Infrastructure (Provisioned by Terraform)
 
-    - VPC, Subnets, Internet Gateway: Network setup for secure and scalable deployment
+   - VPC, Subnets, Internet Gateway: Network setup for secure and scalable deployment
 
-    ** Amazon EKS Cluster:
+    ** Amazon EKS Cluster**:
  
-    - Managed Kubernetes control plane by AWS
+   - Managed Kubernetes control plane by AWS
 
-    - Worker nodes running the microservices containers
+   - Worker nodes running the microservices containers
 
-    **Supporting AWS Services:
+    **Supporting AWS Services**:
 
    - ECR (Elastic Container Registry): Stores Docker images
 
@@ -31,7 +31,7 @@ A fully automated microservices ecommerce platform leveraging Terraform for infr
 
  - Communicate via REST APIs
 
-    **Services include:
+    **Services include**:
 
   - Auth Service (User authentication & authorization)
 
