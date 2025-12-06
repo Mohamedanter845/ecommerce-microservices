@@ -60,7 +60,7 @@ All services communicate internally via **REST APIs** following a clean microser
 
  - Trigger ArgoCD sync (via Git commit or webhook)
 ----
-###4. ☸️ Kubernetes Deployment using Helm & ArgoCD (GitOps)
+### 4. ☸️ Kubernetes Deployment using Helm & ArgoCD (GitOps)
 
  - Helm charts for each microservice under helm/ directory
 
@@ -68,14 +68,14 @@ All services communicate internally via **REST APIs** following a clean microser
 
  - Syncs and deploys updated apps to the EKS cluster automatically
 ----
-###5. 📊 Monitoring & Logging
+### 5. 📊 Monitoring & Logging
 
  - Prometheus & Grafana for cluster and application monitoring
 
  - Custom alerting rules configured in the monitoring namespace
 
  - Dashboards visualize microservices health and usage
-| ![Grafana Namespace](screenshots/grafana-default name space.PNG) | ![Monitoring Project](screenshots/monitoring-project.PNG) | ![Monitoring Project 2](screenshots/monitoring2-project.PNG) |
+| ![Grafana Namespace](screenshots/grafana-default-namespace.PNG) | ![Monitoring Project](screenshots/monitoring-project.PNG) | ![Monitoring Project 2](screenshots/monitoring2-project.PNG) |
 |------------------------------------------------------------------|------------------------------------------------------------|---------------------------------------------------------------|
 ----
 ## 🗂️ Project Structure Overview
