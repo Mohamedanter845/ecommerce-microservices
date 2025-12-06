@@ -3,8 +3,6 @@
 A fully automated microservices ecommerce platform leveraging Terraform for infrastructure provisioning, Helm for Kubernetes package management, GitHub Actions for CI/CD, ArgoCD for GitOps deployment, and robust monitoring & logging.
 ---
 ## Project Architecture 
-![Architecture Diagram](./screenshots/chart.drawio.svg)
-
-[Click here to view the interactive diagram](./screenshots/chart.drawio.svg)
+![Architecture Diagram](./screenshots/chart2.drawio.svg)
 ---
 
