@@ -46,10 +46,6 @@ A fully automated microservices ecommerce platform leveraging Terraform for infr
   - Notification Service (User notifications)
 
  See each service folder for detailed README.
-<p float="left">
-  <img src="screenshots/frontend-project.PNG" alt="Frontend" width="150" />
-  <img src="screenshots/cartpage-project.PNG" alt="Cart Page" width="150" />
-  <img src="screenshots/orderspage-project.PNG" alt="Orders Page" width="150" />
-</p>
+| ![Frontend](screenshots/frontend-project.PNG) | ![Cart Page](screenshots/cartpage-project.PNG) | ![Orders Page](screenshots/orderspage-project.PNG) |
+|----------------------------------------------|-----------------------------------------------|--------------------------------------------------|
 ---
-
