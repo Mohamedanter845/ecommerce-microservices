@@ -6,11 +6,12 @@ A fully automated microservices ecommerce platform leveraging Terraform for infr
 ![Architecture Diagram](./screenshots/chart3.drawio.svg)
 ---
 ## 🏗️ Architecture Overview
-###1. ☁️ AWS Infrastructure (Provisioned by Terraform)
+
+## 1. ☁️ AWS Infrastructure (Provisioned by Terraform)
 
    - VPC, Subnets, Internet Gateway: Network setup for secure and scalable deployment
 
-   ** Amazon EKS Cluster**:
+   **Amazon EKS Cluster**:
  
    - Managed Kubernetes control plane by AWS
 
@@ -24,31 +25,26 @@ A fully automated microservices ecommerce platform leveraging Terraform for infr
 
    - Redis (optional): Caching layer (if used)
 ---
-###2. 📦 Microservices Architecture
--** Each microservice is containerized with Docker**
+### 2. 📦 Microservices Architecture
 
- - Independently deployable via Helm charts
+Each microservice is **containerized** with Docker and is **independently deployable** using Helm charts.  
+All services communicate internally via **REST APIs** following a clean microservices pattern.
 
- - Communicate via REST APIs
- **Services include**:
+**Services include:**
 
-  - Auth Service (User authentication & authorization)
+- **Auth Service** – User authentication & authorization  
+- **Product Service** – Product catalog management  
+- **Cart Service** – User shopping carts  
+- **Order Service** – Order creation & management  
+- **Payment Service** – Handles payment processing  
+- **Notification Service** – Sends email & system notifications  
 
-  - Product Service (Product catalog)
+➡️ *See each service folder for a detailed README.*
 
-  - Cart Service (User shopping carts)
-
-  - Order Service (Order management)
-
-  - Payment Service (Payment processing)
-
-  - Notification Service (User notifications)
-
- See each service folder for detailed README.
 | ![Frontend](screenshots/frontend-project.PNG) | ![Cart Page](screenshots/cartpage-project.PNG) | ![Orders Page](screenshots/orderspage-project.PNG) |
 |----------------------------------------------|-----------------------------------------------|--------------------------------------------------|
 ---
-###3. ⚙️ CI/CD Pipeline with GitHub Actions
+### 3. ⚙️ CI/CD Pipeline with GitHub Actions
 
  - Automated pipeline triggered on main branch changes
 
@@ -79,10 +75,10 @@ A fully automated microservices ecommerce platform leveraging Terraform for infr
  - Custom alerting rules configured in the monitoring namespace
 
  - Dashboards visualize microservices health and usage
-| ![Grafana Namespace](screenshots/grafana-default-namespace.PNG) | ![Monitoring Project](screenshots/monitoring-project.PNG) | ![Monitoring Project 2](screenshots/monitoring2-project.PNG) |
+| ![Grafana Namespace](screenshots/grafana-default name space.PNG) | ![Monitoring Project](screenshots/monitoring-project.PNG) | ![Monitoring Project 2](screenshots/monitoring2-project.PNG) |
 |------------------------------------------------------------------|------------------------------------------------------------|---------------------------------------------------------------|
 ----
-##🗂️ Project Structure Overview
+## 🗂️ Project Structure Overview
 ```bash
 .
 ├── .github/workflows/      # GitHub Actions CI/CD pipelines
@@ -101,9 +97,13 @@ A fully automated microservices ecommerce platform leveraging Terraform for infr
 └── README.md               # This main project README file
 ```
 ----
-##⚙️ Technologies & Tools Used
+
+## ⚙️ Technologies & Tools Used
+
+
 ```bash
-| Category         | Tools / Services                               |
+
+| **Category**         | **Tools / Services**                               |
 | ---------------- | ---------------------------------------------- |
 | Infrastructure   | AWS (EKS, RDS PostgreSQL, ECR, VPC), Terraform |
 | Containerization | Docker                                         |
@@ -113,15 +113,19 @@ A fully automated microservices ecommerce platform leveraging Terraform for infr
 | Languages        | Python (FastAPI), JavaScript (React)           |
 | Database         | PostgreSQL (RDS)                               |
 | Caching          | Redis (optional, if used)                      |
+
+
 ```
+
 ------
-##⚡ How to Get Started
 
--Clone the repo
+## ⚡ How to Get Started
 
--Review infrastructure provisioning in terraform-eks/
+- Clone the repo
 
--Explore microservices in their respective folders and their Helm charts
+- Review infrastructure provisioning in terraform-eks/
+
+- Explore microservices in their respective folders and their Helm charts
 
 -Setup GitHub Actions secrets for AWS credentials and ECR registry
 
